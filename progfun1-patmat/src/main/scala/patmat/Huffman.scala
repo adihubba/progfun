@@ -1,7 +1,5 @@
 package patmat
 
-import common.{ ??? => ??? }
-
 /**
  * Assignment 4: Huffman coding
  *
@@ -165,7 +163,18 @@ object Huffman {
    * This function decodes the bit sequence `bits` using the code tree `tree` and returns
    * the resulting list of characters.
    */
-  def decode(tree: CodeTree, bits: List[Bit]): List[Char] = ??? 
+  def decode(tree: CodeTree, bits: List[Bit]): List[Char] = {
+    def decodeAcc(subTree: CodeTree, subBits: List[Bit], acc: List[Char]): List[Char] = {
+      (subTree, subBits) match {
+        case (Leaf(c, _), Nil)                          => c :: acc
+        case (Leaf(c, _), remainingBits)                => decodeAcc(tree, remainingBits, c :: acc)
+        case (Fork(left, _, _, _), Nil)                 => throw new IllegalArgumentException("Bit length doesn't match with tree")
+        case (Fork(left, _, _, _), 0 :: remainingBits)  => decodeAcc(left, remainingBits, acc)
+        case (Fork(_, right, _, _), 1 :: remainingBits) => decodeAcc(right, remainingBits, acc)
+      }
+    }
+    decodeAcc(tree, bits, Nil).reverse
+  }
 
   /**
    * A Huffman coding tree for the French language.
@@ -183,7 +192,7 @@ object Huffman {
   /**
    * Write a function that returns the decoded secret
    */
-  def decodedSecret: List[Char] = ???
+  def decodedSecret: List[Char] = decode(frenchCode, secret)
 
   // Part 4a: Encoding using Huffman tree
 
