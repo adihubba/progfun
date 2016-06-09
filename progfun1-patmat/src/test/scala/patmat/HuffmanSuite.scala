@@ -28,9 +28,13 @@ class HuffmanSuite extends FunSuite {
     }
   }
 
-
   test("string2chars(\"hello, world\")") {
-    assert(string2Chars("hello, world") === List('h', 'e', 'l', 'l', 'o', ',', ' ', 'w', 'o', 'r', 'l', 'd'))
+	  assert(string2Chars("hello, world") === List('h', 'e', 'l', 'l', 'o', ',', ' ', 'w', 'o', 'r', 'l', 'd'))
+  }
+
+  test("test of times") {
+    val result = times(string2Chars("abacea"))
+	  assert(result.length == 4)
   }
 
 
