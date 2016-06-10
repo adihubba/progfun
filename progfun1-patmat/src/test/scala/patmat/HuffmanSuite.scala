@@ -4,18 +4,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 
-import patmat.Huffman.Fork
-import patmat.Huffman.Leaf
-import patmat.Huffman.chars
-import patmat.Huffman.combine
-import patmat.Huffman.createCodeTree
-import patmat.Huffman.decode
-import patmat.Huffman.decodedSecret
-import patmat.Huffman.encode
-import patmat.Huffman.makeOrderedLeafList
-import patmat.Huffman.string2Chars
-import patmat.Huffman.times
-import patmat.Huffman.weight
+import patmat.Huffman._
 
 @RunWith(classOf[JUnitRunner])
 class HuffmanSuite extends FunSuite {
@@ -68,6 +57,18 @@ class HuffmanSuite extends FunSuite {
     val text = "this is my testing texty text".toList
     val tree = createCodeTree(text)
     assert(decode(tree, encode(tree)(text)) === text)
+  }
+
+  test("extended de- and quickencode test") {
+    val text = "this is my testing texty text".toList
+    val tree = createCodeTree(text)
+    assert(decode(tree, quickEncode(tree)(text)) === text)
+  }
+
+  test("encode equals quickencode") {
+    val text = "this is my testing texty text".toList
+    val tree = createCodeTree(text)
+    assert(encode(tree)(text) === quickEncode(tree)(text))
   }
 
 }
