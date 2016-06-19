@@ -114,7 +114,7 @@ object Huffman {
    * unchanged.
    */
   def combine(trees: List[CodeTree]): List[CodeTree] = {
-    if (singleton(trees))
+    if (trees.isEmpty || singleton(trees))
       trees
     else {
       val fork = makeCodeTree(trees.head, trees.tail.head)
