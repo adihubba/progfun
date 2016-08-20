@@ -171,6 +171,7 @@ object Huffman {
         case (Fork(left, _, _, _), Nil)                 => throw new IllegalArgumentException("Bit length doesn't match with tree")
         case (Fork(left, _, _, _), 0 :: remainingBits)  => decodeAcc(left, remainingBits, acc)
         case (Fork(_, right, _, _), 1 :: remainingBits) => decodeAcc(right, remainingBits, acc)
+        case _ => throw new IllegalArgumentException("Unexpected condition")
       }
     }
     decodeAcc(tree, bits, Nil).reverse
