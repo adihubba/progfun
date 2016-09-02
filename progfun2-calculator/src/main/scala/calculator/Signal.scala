@@ -11,8 +11,9 @@ class Signal[T](expr: => T) {
   update(expr)
 
   protected def computeValue(): Unit = {
-    for (sig <- observed)
+    for (sig <- observed) {
       sig.observers -= this
+    }
     observed = Nil
     val newValue = caller.withValue(this)(myExpr())
     /* Disable the following "optimization" for the assignment, because we
