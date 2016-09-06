@@ -1,2 +1,2 @@
-# progfun1-example
-Functional programming in scala - example
+# progfun
+Coursera -> Functional programming in scala
